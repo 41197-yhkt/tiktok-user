@@ -4,7 +4,7 @@ import "gorm.io/gen"
 
 type UserMethod interface {
 	//where("user_name=@user_name")
-	FindByUserName(name string) (gen.T, error)
+	FindByUserName(user_name string) (gen.T, error)
 	//where("id=@id")
 	FindByUserID(id int64) (gen.T, error)
 	//update @@table
@@ -31,7 +31,9 @@ type UserRelationMethod interface {
 	//where("id=@id")
 	FindByID(id int64) (gen.T, error)
 	//where("follow_from=@follow_from")
-	FindByFollowFrom(follow_from string) (gen.T, error)
+	FindByFollowFrom(follow_from string) ([]gen.T, error)
 	//where("follow_to=@follow_to")
-	FindByFollowTo(follow_to string) (gen.T, error)
+	FindByFollowTo(follow_to string) ([]gen.T, error)
+	//where("follow_from=@follow_from and follow_to=@follow_to")
+	FindByFollowFromAndFollowTo(follow_from string, follow_to string) (gen.T, error)
 }

@@ -5,10 +5,12 @@ go 1.19
 require (
 	github.com/apache/thrift v0.17.0
 	github.com/cloudwego/kitex v0.4.4
-	github.com/golang/mock v1.6.0
+	github.com/opentracing/opentracing-go v1.2.0
+	golang.org/x/crypto v0.0.0-20221005025214-4161e89ecf1b
 	gorm.io/driver/mysql v1.4.5
 	gorm.io/gen v0.3.19
 	gorm.io/gorm v1.24.3
+	gorm.io/plugin/dbresolver v1.3.0
 )
 
 require (
@@ -44,5 +46,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/datatypes v1.0.7 // indirect
 	gorm.io/hints v1.1.0 // indirect
-	gorm.io/plugin/dbresolver v1.3.0 // indirect
 )
