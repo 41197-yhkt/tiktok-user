@@ -3064,7 +3064,7 @@ ReadStructEndError:
 func (p *UserServiceUserInfoArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewUserInfoResponse()
+	tmp := NewUserInfoRequest()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -3580,7 +3580,7 @@ ReadStructEndError:
 func (p *UserServiceUserUnfollowArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewUserFollowRequest()
+	tmp := NewUserUnfollowRequest()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -3707,7 +3707,7 @@ ReadStructEndError:
 func (p *UserServiceUserUnfollowResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewUserFollowResponse()
+	tmp := NewUserUnfollowResponse()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {

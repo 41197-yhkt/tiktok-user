@@ -125,7 +125,7 @@ func (u user) replaceDB(db *gorm.DB) user {
 type userDo struct{ gen.DO }
 
 // where("user_name=@user_name")
-func (u userDo) FindByUserName(name string) (result model.User, err error) {
+func (u userDo) FindByUserName(user_name string) (result model.User, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -140,7 +140,7 @@ func (u userDo) FindByUserName(name string) (result model.User, err error) {
 }
 
 // where("id=@id")
-func (u userDo) FindByUserID(id int64) (result model.User, err error) {
+func (u userDo) FindByUserID(id uint) (result model.User, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -164,7 +164,7 @@ func (u userDo) FindByUserID(id int64) (result model.User, err error) {
 //	{{end}}
 //
 // where id=@id
-func (u userDo) UpdateUserFollowCount(id int, follow_count int) (err error) {
+func (u userDo) UpdateUserFollowCount(id uint, follow_count int) (err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -196,7 +196,7 @@ func (u userDo) UpdateUserFollowCount(id int, follow_count int) (err error) {
 //	{{end}}
 //
 // where id=@id
-func (u userDo) UpdateUserFollowerCount(id int, follower_count string) (err error) {
+func (u userDo) UpdateUserFollowerCount(id uint, follower_count int) (err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder

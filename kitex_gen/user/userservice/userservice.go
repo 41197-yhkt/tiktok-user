@@ -159,7 +159,7 @@ func (p *kClient) UserLogin(ctx context.Context, req *user.UserLoginRequest) (r 
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) UserInfo(ctx context.Context, req *user.UserInfoResponse) (r *user.UserInfoResponse, err error) {
+func (p *kClient) UserInfo(ctx context.Context, req *user.UserInfoRequest) (r *user.UserInfoResponse, err error) {
 	var _args user.UserServiceUserInfoArgs
 	_args.Req = req
 	var _result user.UserServiceUserInfoResult
@@ -179,7 +179,7 @@ func (p *kClient) UserFollow(ctx context.Context, req *user.UserFollowRequest) (
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) UserUnfollow(ctx context.Context, req *user.UserFollowRequest) (r *user.UserFollowResponse, err error) {
+func (p *kClient) UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest) (r *user.UserUnfollowResponse, err error) {
 	var _args user.UserServiceUserUnfollowArgs
 	_args.Req = req
 	var _result user.UserServiceUserUnfollowResult

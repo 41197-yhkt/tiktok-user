@@ -3,13 +3,11 @@ package util
 import (
 	"fmt"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm/logger"
 )
 
 func EncryptPasswd(password string) (string, error) {
 	var passwordHash, err = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost) //加密处理
 	if err != nil {
-		logger.Error("")
 		return "", err
 	}
 

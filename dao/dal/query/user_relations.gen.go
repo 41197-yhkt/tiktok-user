@@ -118,7 +118,7 @@ func (u userRelation) replaceDB(db *gorm.DB) userRelation {
 type userRelationDo struct{ gen.DO }
 
 // where("id=@id")
-func (u userRelationDo) FindByID(id int64) (result model.UserRelation, err error) {
+func (u userRelationDo) FindByID(id uint) (result model.UserRelation, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -133,7 +133,7 @@ func (u userRelationDo) FindByID(id int64) (result model.UserRelation, err error
 }
 
 // where("follow_from=@follow_from")
-func (u userRelationDo) FindByFollowFrom(follow_from string) (result model.UserRelation, err error) {
+func (u userRelationDo) FindByFollowFrom(follow_from uint) (result []model.UserRelation, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -142,18 +142,34 @@ func (u userRelationDo) FindByFollowFrom(follow_from string) (result model.UserR
 
 	var executeSQL *gorm.DB
 
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result)
 	err = executeSQL.Error
 	return
 }
 
 // where("follow_to=@follow_to")
-func (u userRelationDo) FindByFollowTo(follow_to string) (result model.UserRelation, err error) {
+func (u userRelationDo) FindByFollowTo(follow_to uint) (result []model.UserRelation, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
 	params = append(params, follow_to)
 	generateSQL.WriteString("follow_to=? ")
+
+	var executeSQL *gorm.DB
+
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result)
+	err = executeSQL.Error
+	return
+}
+
+// where("follow_from=@follow_from and follow_to=@follow_to")
+func (u userRelationDo) FindByFollowFromAndFollowTo(follow_from uint, follow_to uint) (result model.UserRelation, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	params = append(params, follow_from)
+	params = append(params, follow_to)
+	generateSQL.WriteString("follow_from=? and follow_to=? ")
 
 	var executeSQL *gorm.DB
 

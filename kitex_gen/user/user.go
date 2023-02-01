@@ -3143,11 +3143,11 @@ type UserService interface {
 
 	UserLogin(ctx context.Context, req *UserLoginRequest) (r *UserLoginResponse, err error)
 
-	UserInfo(ctx context.Context, req *UserInfoResponse) (r *UserInfoResponse, err error)
+	UserInfo(ctx context.Context, req *UserInfoRequest) (r *UserInfoResponse, err error)
 
 	UserFollow(ctx context.Context, req *UserFollowRequest) (r *UserFollowResponse, err error)
 
-	UserUnfollow(ctx context.Context, req *UserFollowRequest) (r *UserFollowResponse, err error)
+	UserUnfollow(ctx context.Context, req *UserUnfollowRequest) (r *UserUnfollowResponse, err error)
 }
 
 type UserServiceClient struct {
@@ -3194,7 +3194,7 @@ func (p *UserServiceClient) UserLogin(ctx context.Context, req *UserLoginRequest
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *UserServiceClient) UserInfo(ctx context.Context, req *UserInfoResponse) (r *UserInfoResponse, err error) {
+func (p *UserServiceClient) UserInfo(ctx context.Context, req *UserInfoRequest) (r *UserInfoResponse, err error) {
 	var _args UserServiceUserInfoArgs
 	_args.Req = req
 	var _result UserServiceUserInfoResult
@@ -3212,7 +3212,7 @@ func (p *UserServiceClient) UserFollow(ctx context.Context, req *UserFollowReque
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *UserServiceClient) UserUnfollow(ctx context.Context, req *UserFollowRequest) (r *UserFollowResponse, err error) {
+func (p *UserServiceClient) UserUnfollow(ctx context.Context, req *UserUnfollowRequest) (r *UserUnfollowResponse, err error) {
 	var _args UserServiceUserUnfollowArgs
 	_args.Req = req
 	var _result UserServiceUserUnfollowResult
@@ -3478,7 +3478,7 @@ func (p *userServiceProcessorUserUnfollow) Process(ctx context.Context, seqId in
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := UserServiceUserUnfollowResult{}
-	var retval *UserFollowResponse
+	var retval *UserUnfollowResponse
 	if retval, err2 = p.handler.UserUnfollow(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UserUnfollow: "+err2.Error())
 		oprot.WriteMessageBegin("UserUnfollow", thrift.EXCEPTION, seqId)
@@ -4200,7 +4200,7 @@ func (p *UserServiceUserLoginResult) Field0DeepEqual(src *UserLoginResponse) boo
 }
 
 type UserServiceUserInfoArgs struct {
-	Req *UserInfoResponse `thrift:"req,1" frugal:"1,default,UserInfoResponse" json:"req"`
+	Req *UserInfoRequest `thrift:"req,1" frugal:"1,default,UserInfoRequest" json:"req"`
 }
 
 func NewUserServiceUserInfoArgs() *UserServiceUserInfoArgs {
@@ -4211,15 +4211,15 @@ func (p *UserServiceUserInfoArgs) InitDefault() {
 	*p = UserServiceUserInfoArgs{}
 }
 
-var UserServiceUserInfoArgs_Req_DEFAULT *UserInfoResponse
+var UserServiceUserInfoArgs_Req_DEFAULT *UserInfoRequest
 
-func (p *UserServiceUserInfoArgs) GetReq() (v *UserInfoResponse) {
+func (p *UserServiceUserInfoArgs) GetReq() (v *UserInfoRequest) {
 	if !p.IsSetReq() {
 		return UserServiceUserInfoArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *UserServiceUserInfoArgs) SetReq(val *UserInfoResponse) {
+func (p *UserServiceUserInfoArgs) SetReq(val *UserInfoRequest) {
 	p.Req = val
 }
 
@@ -4291,7 +4291,7 @@ ReadStructEndError:
 }
 
 func (p *UserServiceUserInfoArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewUserInfoResponse()
+	p.Req = NewUserInfoRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -4363,7 +4363,7 @@ func (p *UserServiceUserInfoArgs) DeepEqual(ano *UserServiceUserInfoArgs) bool {
 	return true
 }
 
-func (p *UserServiceUserInfoArgs) Field1DeepEqual(src *UserInfoResponse) bool {
+func (p *UserServiceUserInfoArgs) Field1DeepEqual(src *UserInfoRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -4892,7 +4892,7 @@ func (p *UserServiceUserFollowResult) Field0DeepEqual(src *UserFollowResponse) b
 }
 
 type UserServiceUserUnfollowArgs struct {
-	Req *UserFollowRequest `thrift:"req,1" frugal:"1,default,UserFollowRequest" json:"req"`
+	Req *UserUnfollowRequest `thrift:"req,1" frugal:"1,default,UserUnfollowRequest" json:"req"`
 }
 
 func NewUserServiceUserUnfollowArgs() *UserServiceUserUnfollowArgs {
@@ -4903,15 +4903,15 @@ func (p *UserServiceUserUnfollowArgs) InitDefault() {
 	*p = UserServiceUserUnfollowArgs{}
 }
 
-var UserServiceUserUnfollowArgs_Req_DEFAULT *UserFollowRequest
+var UserServiceUserUnfollowArgs_Req_DEFAULT *UserUnfollowRequest
 
-func (p *UserServiceUserUnfollowArgs) GetReq() (v *UserFollowRequest) {
+func (p *UserServiceUserUnfollowArgs) GetReq() (v *UserUnfollowRequest) {
 	if !p.IsSetReq() {
 		return UserServiceUserUnfollowArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *UserServiceUserUnfollowArgs) SetReq(val *UserFollowRequest) {
+func (p *UserServiceUserUnfollowArgs) SetReq(val *UserUnfollowRequest) {
 	p.Req = val
 }
 
@@ -4983,7 +4983,7 @@ ReadStructEndError:
 }
 
 func (p *UserServiceUserUnfollowArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewUserFollowRequest()
+	p.Req = NewUserUnfollowRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -5055,7 +5055,7 @@ func (p *UserServiceUserUnfollowArgs) DeepEqual(ano *UserServiceUserUnfollowArgs
 	return true
 }
 
-func (p *UserServiceUserUnfollowArgs) Field1DeepEqual(src *UserFollowRequest) bool {
+func (p *UserServiceUserUnfollowArgs) Field1DeepEqual(src *UserUnfollowRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -5064,7 +5064,7 @@ func (p *UserServiceUserUnfollowArgs) Field1DeepEqual(src *UserFollowRequest) bo
 }
 
 type UserServiceUserUnfollowResult struct {
-	Success *UserFollowResponse `thrift:"success,0,optional" frugal:"0,optional,UserFollowResponse" json:"success,omitempty"`
+	Success *UserUnfollowResponse `thrift:"success,0,optional" frugal:"0,optional,UserUnfollowResponse" json:"success,omitempty"`
 }
 
 func NewUserServiceUserUnfollowResult() *UserServiceUserUnfollowResult {
@@ -5075,16 +5075,16 @@ func (p *UserServiceUserUnfollowResult) InitDefault() {
 	*p = UserServiceUserUnfollowResult{}
 }
 
-var UserServiceUserUnfollowResult_Success_DEFAULT *UserFollowResponse
+var UserServiceUserUnfollowResult_Success_DEFAULT *UserUnfollowResponse
 
-func (p *UserServiceUserUnfollowResult) GetSuccess() (v *UserFollowResponse) {
+func (p *UserServiceUserUnfollowResult) GetSuccess() (v *UserUnfollowResponse) {
 	if !p.IsSetSuccess() {
 		return UserServiceUserUnfollowResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *UserServiceUserUnfollowResult) SetSuccess(x interface{}) {
-	p.Success = x.(*UserFollowResponse)
+	p.Success = x.(*UserUnfollowResponse)
 }
 
 var fieldIDToName_UserServiceUserUnfollowResult = map[int16]string{
@@ -5155,7 +5155,7 @@ ReadStructEndError:
 }
 
 func (p *UserServiceUserUnfollowResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewUserFollowResponse()
+	p.Success = NewUserUnfollowResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -5229,7 +5229,7 @@ func (p *UserServiceUserUnfollowResult) DeepEqual(ano *UserServiceUserUnfollowRe
 	return true
 }
 
-func (p *UserServiceUserUnfollowResult) Field0DeepEqual(src *UserFollowResponse) bool {
+func (p *UserServiceUserUnfollowResult) Field0DeepEqual(src *UserUnfollowResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

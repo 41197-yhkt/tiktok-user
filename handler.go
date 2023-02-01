@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	user "tiktok-user/kitex_gen/user"
+	"tiktok-user/service"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -10,30 +11,25 @@ type UserServiceImpl struct{}
 
 // UserRegister implements the UserServiceImpl interface.
 func (s *UserServiceImpl) UserRegister(ctx context.Context, req *user.UserRegisterRequest) (resp *user.UserRegisterResponse, err error) {
-	// TODO: Your code here...
-	return
+	return service.UserRegister(ctx, req)
 }
 
 // UserLogin implements the UserServiceImpl interface.
 func (s *UserServiceImpl) UserLogin(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLoginResponse, err error) {
-	// TODO: Your code here...
-	return
-}
-
-// UserInfo implements the UserServiceImpl interface.
-func (s *UserServiceImpl) UserInfo(ctx context.Context, req *user.UserInfoResponse) (resp *user.UserInfoResponse, err error) {
-	// TODO: Your code here...
-	return
+	return service.UserLogin(ctx, req)
 }
 
 // UserFollow implements the UserServiceImpl interface.
 func (s *UserServiceImpl) UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.UserFollowResponse, err error) {
-	// TODO: Your code here...
-	return
+	return service.UserFollow(ctx, req)
+}
+
+// UserInfo implements the UserServiceImpl interface.
+func (s *UserServiceImpl) UserInfo(ctx context.Context, req *user.UserInfoRequest) (resp *user.UserInfoResponse, err error) {
+	return service.UserInfo(ctx, req)
 }
 
 // UserUnfollow implements the UserServiceImpl interface.
-func (s *UserServiceImpl) UserUnfollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.UserFollowResponse, err error) {
-	// TODO: Your code here...
-	return
+func (s *UserServiceImpl) UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest) (resp *user.UserUnfollowResponse, err error) {
+	return service.UserUnfollow(ctx, req)
 }
