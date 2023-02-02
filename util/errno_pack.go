@@ -2,7 +2,7 @@ package util
 
 import (
 	"github.com/41197-yhkt/pkg/errno"
-	"tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
 )
 
 func PackBaseResp(err error) *user.BaseResp {
