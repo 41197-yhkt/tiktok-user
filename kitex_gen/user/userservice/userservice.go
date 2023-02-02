@@ -4,9 +4,9 @@ package userservice
 
 import (
 	"context"
+	user "github.com/41197-yhkt/tiktok-user/kitex_gen/user"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	user "tiktok-user/kitex_gen/user"
 )
 
 func serviceInfo() *kitex.ServiceInfo {
