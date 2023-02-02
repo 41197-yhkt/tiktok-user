@@ -2,8 +2,8 @@ package dal
 
 import (
 	"fmt"
+	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
 	"sync"
-	"tiktok-user/dao/dal/model"
 
 	"gorm.io/gorm"
 

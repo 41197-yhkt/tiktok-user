@@ -1,8 +1,9 @@
-module tiktok-user
+module github.com/41197-yhkt/tiktok-user
 
 go 1.19
 
 require (
+	github.com/41197-yhkt/pkg v0.0.0-20230131134545-40a2f57a6153
 	github.com/apache/thrift v0.17.0
 	github.com/cloudwego/kitex v0.4.4
 	github.com/opentracing/opentracing-go v1.2.0
@@ -14,7 +15,6 @@ require (
 )
 
 require (
-	github.com/41197-yhkt/pkg v0.0.0-20230131134545-40a2f57a6153 // indirect
 	github.com/bytedance/gopkg v0.0.0-20220531084716-665b4f21126f // indirect
 	github.com/chenzhuoyu/iasm v0.0.0-20220818063314-28c361dae733 // indirect
 	github.com/choleraehyq/pid v0.0.15 // indirect

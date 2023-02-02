@@ -3,13 +3,13 @@ package service
 import (
 	"context"
 	"errors"
+	"github.com/41197-yhkt/tiktok-user/dao/dal"
+	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
+	"github.com/41197-yhkt/tiktok-user/dao/dal/query"
+	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok-user/util"
 	"github.com/opentracing/opentracing-go"
 	"gorm.io/gorm"
-	"tiktok-user/dao/dal"
-	"tiktok-user/dao/dal/model"
-	"tiktok-user/dao/dal/query"
-	"tiktok-user/kitex_gen/user"
-	"tiktok-user/util"
 )
 
 func UserRegister(ctx context.Context, req *user.UserRegisterRequest) (resp *user.UserRegisterResponse, err error) {
@@ -24,7 +24,7 @@ func UserRegister(ctx context.Context, req *user.UserRegisterRequest) (resp *use
 		// username对应的用户已经存在，请重新注册
 		sErr := errors.New("username is already in use, please change another one")
 		resp.BaseResp = util.PackBaseResp(sErr)
-		return resp, sErr
+		return
 	}
 
 	// 当前注册的用户已经不存在

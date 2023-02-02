@@ -4,12 +4,12 @@ import (
 	"context"
 	"errors"
 	"github.com/41197-yhkt/pkg/errno"
+	"github.com/41197-yhkt/tiktok-user/dao/dal"
+	"github.com/41197-yhkt/tiktok-user/dao/dal/query"
+	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok-user/util"
 	"github.com/opentracing/opentracing-go"
 	"gorm.io/gorm"
-	"tiktok-user/dao/dal"
-	"tiktok-user/dao/dal/query"
-	"tiktok-user/kitex_gen/user"
-	"tiktok-user/util"
 )
 
 func UserLogin(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLoginResponse, err error) {

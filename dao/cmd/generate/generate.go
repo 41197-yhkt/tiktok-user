@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
 	"gorm.io/gen"
-	"tiktok-user/dao/dal/model"
 )
 
 func main() {

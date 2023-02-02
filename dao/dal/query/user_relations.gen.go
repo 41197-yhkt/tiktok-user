@@ -17,7 +17,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"tiktok-user/dao/dal/model"
+	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
 )
 
 func newUserRelation(db *gorm.DB, opts ...gen.DOOption) userRelation {
@@ -32,8 +32,8 @@ func newUserRelation(db *gorm.DB, opts ...gen.DOOption) userRelation {
 	_userRelation.CreatedAt = field.NewTime(tableName, "created_at")
 	_userRelation.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_userRelation.DeletedAt = field.NewField(tableName, "deleted_at")
-	_userRelation.FollowFrom = field.NewUint(tableName, " follow_from")
-	_userRelation.FollowTo = field.NewUint(tableName, " follow_to")
+	_userRelation.FollowFrom = field.NewUint(tableName, "follow_from, type:bigint, uniqueIndex:index_follow_relation")
+	_userRelation.FollowTo = field.NewUint(tableName, "follow_to, type:bigint, uniqueIndex:index_follow_relation")
 
 	_userRelation.fillFieldMap()
 
@@ -70,8 +70,8 @@ func (u *userRelation) updateTableName(table string) *userRelation {
 	u.CreatedAt = field.NewTime(table, "created_at")
 	u.UpdatedAt = field.NewTime(table, "updated_at")
 	u.DeletedAt = field.NewField(table, "deleted_at")
-	u.FollowFrom = field.NewUint(table, " follow_from")
-	u.FollowTo = field.NewUint(table, " follow_to")
+	u.FollowFrom = field.NewUint(table, "follow_from, type:bigint, uniqueIndex:index_follow_relation")
+	u.FollowTo = field.NewUint(table, "follow_to, type:bigint, uniqueIndex:index_follow_relation")
 
 	u.fillFieldMap()
 
@@ -101,8 +101,8 @@ func (u *userRelation) fillFieldMap() {
 	u.fieldMap["created_at"] = u.CreatedAt
 	u.fieldMap["updated_at"] = u.UpdatedAt
 	u.fieldMap["deleted_at"] = u.DeletedAt
-	u.fieldMap[" follow_from"] = u.FollowFrom
-	u.fieldMap[" follow_to"] = u.FollowTo
+	u.fieldMap["follow_from, type:bigint, uniqueIndex:index_follow_relation"] = u.FollowFrom
+	u.fieldMap["follow_to, type:bigint, uniqueIndex:index_follow_relation"] = u.FollowTo
 }
 
 func (u userRelation) clone(db *gorm.DB) userRelation {

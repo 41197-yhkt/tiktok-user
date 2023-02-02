@@ -18,7 +18,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"tiktok-user/dao/dal/model"
+	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
 )
 
 func newUser(db *gorm.DB, opts ...gen.DOOption) user {
@@ -35,8 +35,8 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.DeletedAt = field.NewField(tableName, "deleted_at")
 	_user.Name = field.NewString(tableName, " user_name")
 	_user.Password = field.NewString(tableName, " user_pwd_hash")
-	_user.FollowCount = field.NewInt(tableName, " follow_count")
-	_user.FollowerCount = field.NewInt(tableName, " follower_count")
+	_user.FollowCount = field.NewInt(tableName, " follow_count, type: int")
+	_user.FollowerCount = field.NewInt(tableName, " follower_count, type: int")
 
 	_user.fillFieldMap()
 
@@ -77,8 +77,8 @@ func (u *user) updateTableName(table string) *user {
 	u.DeletedAt = field.NewField(table, "deleted_at")
 	u.Name = field.NewString(table, " user_name")
 	u.Password = field.NewString(table, " user_pwd_hash")
-	u.FollowCount = field.NewInt(table, " follow_count")
-	u.FollowerCount = field.NewInt(table, " follower_count")
+	u.FollowCount = field.NewInt(table, " follow_count, type: int")
+	u.FollowerCount = field.NewInt(table, " follower_count, type: int")
 
 	u.fillFieldMap()
 
@@ -108,8 +108,8 @@ func (u *user) fillFieldMap() {
 	u.fieldMap["deleted_at"] = u.DeletedAt
 	u.fieldMap[" user_name"] = u.Name
 	u.fieldMap[" user_pwd_hash"] = u.Password
-	u.fieldMap[" follow_count"] = u.FollowCount
-	u.fieldMap[" follower_count"] = u.FollowerCount
+	u.fieldMap[" follow_count, type: int"] = u.FollowCount
+	u.fieldMap[" follower_count, type: int"] = u.FollowerCount
 }
 
 func (u user) clone(db *gorm.DB) user {
