@@ -13,22 +13,23 @@ import (
 )
 
 func UserInfo(ctx context.Context, req *user.UserInfoRequest) (resp *user.UserInfoResponse, err error) {
+	resp = user.NewUserInfoResponse()
 	span, ctx := opentracing.StartSpanFromContext(ctx, "UserInfo")
 	defer span.Finish()
 
 	var q = query.Use(dal.DB.Debug())
 	userDao := q.User.WithContext(ctx)
-	gormUser, err := userDao.FindByUserID(uint(req.UserId))
+	gormUser, sErr := userDao.FindByUserID(uint(req.UserId))
 
 	// 如果查询失败
-	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
+	if sErr != nil {
+		if errors.Is(sErr, gorm.ErrRecordNotFound) {
 			resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
 		} else {
-			resp.BaseResp = util.PackBaseResp(err)
+			resp.BaseResp = util.PackBaseResp(sErr)
 		}
 
-		return resp, err
+		return resp, sErr
 	}
 
 	followCount := int64(gormUser.FollowCount)

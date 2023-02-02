@@ -15,7 +15,7 @@ var once sync.Once
 
 func init() {
 	once.Do(func() {
-		DB = ConnectDB().Debug()
+		DB = ConnectDB()
 		_ = DB.AutoMigrate(&model.User{}, &model.UserRelation{})
 	})
 }

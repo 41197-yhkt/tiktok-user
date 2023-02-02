@@ -48,3 +48,5 @@ require (
 	gorm.io/datatypes v1.1.0 // indirect
 	gorm.io/hints v1.1.1 // indirect
 )
+
+replace github.com/apache/thrift => github.com/apache/thrift v0.13.0

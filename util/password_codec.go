@@ -14,9 +14,9 @@ func EncryptPasswd(password string) (string, error) {
 	return string(passwordHash), nil
 }
 
-func ComparePasswd(loginPassword, dbPassword string) (isPassed bool, err error) {
+func ComparePasswd(dbPassword, loginPassword string) (isPassed bool, err error) {
 	// 密码验证
-	err = bcrypt.CompareHashAndPassword([]byte(loginPassword), []byte(dbPassword)) //验证（对比）
+	err = bcrypt.CompareHashAndPassword([]byte(dbPassword), []byte(loginPassword)) //验证（对比）
 	if err != nil {
 		fmt.Println("pwd wrong")
 		return false, nil

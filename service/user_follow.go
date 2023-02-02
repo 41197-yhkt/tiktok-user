@@ -12,6 +12,7 @@ import (
 
 // UserFollow 用户关注，就算关注多次，数据库实际也只保存一条记录昂
 func UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.UserFollowResponse, err error) {
+	resp = user.NewUserFollowResponse()
 	span, ctx := opentracing.StartSpanFromContext(ctx, "UserInfo")
 	defer span.Finish()
 
@@ -39,6 +40,7 @@ func UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.Us
 
 // UserUnfollow 用户取消关注，由于存在软删除
 func UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest) (resp *user.UserUnfollowResponse, err error) {
+	resp = user.NewUserUnfollowResponse()
 	span, ctx := opentracing.StartSpanFromContext(ctx, "UserInfo")
 	defer span.Finish()
 

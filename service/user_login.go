@@ -13,32 +13,34 @@ import (
 )
 
 func UserLogin(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLoginResponse, err error) {
+	resp = user.NewUserLoginResponse()
 	span, ctx := opentracing.StartSpanFromContext(ctx, "UserLogin")
 	defer span.Finish()
 
 	var q = query.Use(dal.DB.Debug())
 	userDao := q.User.WithContext(ctx)
-	gormUser, err := userDao.FindByUserName(req.Username)
+	gormUser, sErr := userDao.FindByUserName(req.Username)
 
 	// 如果记录不存在
-	if errors.Is(err, gorm.ErrRecordNotFound) {
+	if errors.Is(sErr, gorm.ErrRecordNotFound) {
 		resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
-		return resp, err
+		return resp, errors.New("user has't registered")
 	}
 
 	// 如果记录存在
-	pwdCmpPass, err := util.ComparePasswd(req.Password, gormUser.Password)
+	pwdCmpPass, sErr := util.ComparePasswd(gormUser.Password, req.Password)
 	// 密码比对出现问题
-	if err != nil {
-		resp.BaseResp = util.PackBaseResp(err)
-		return resp, err
+	if sErr != nil {
+		resp.BaseResp = util.PackBaseResp(sErr)
+		return resp, sErr
 	}
 	// 密码不匹配
 	if !pwdCmpPass {
 		resp.BaseResp = util.PackBaseResp(errno.UserPwdErr)
-		return resp, err
+		return resp, sErr
 	}
 
 	resp.BaseResp = util.PackBaseResp(nil)
+	resp.UserId = int64(gormUser.ID)
 	return resp, nil
 }

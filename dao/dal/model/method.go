@@ -19,7 +19,7 @@ type UserMethod interface {
 	//update @@table
 	//	{{set}}
 	//		update_time=now(),
-	//		{{if follower_count != ""}}
+	//		{{if follower_count != 0}}
 	//			follower_count=@follower_count
 	//		{{end}}
 	//	{{end}}

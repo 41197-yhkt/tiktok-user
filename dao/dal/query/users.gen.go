@@ -33,10 +33,10 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.CreatedAt = field.NewTime(tableName, "created_at")
 	_user.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_user.DeletedAt = field.NewField(tableName, "deleted_at")
-	_user.Name = field.NewString(tableName, " user_name")
-	_user.Password = field.NewString(tableName, " user_pwd_hash")
-	_user.FollowCount = field.NewInt(tableName, " follow_count, type: int")
-	_user.FollowerCount = field.NewInt(tableName, " follower_count, type: int")
+	_user.Name = field.NewString(tableName, "user_name")
+	_user.Password = field.NewString(tableName, "user_pwd_hash")
+	_user.FollowCount = field.NewInt(tableName, "follow_count")
+	_user.FollowerCount = field.NewInt(tableName, "follower_count")
 
 	_user.fillFieldMap()
 
@@ -75,10 +75,10 @@ func (u *user) updateTableName(table string) *user {
 	u.CreatedAt = field.NewTime(table, "created_at")
 	u.UpdatedAt = field.NewTime(table, "updated_at")
 	u.DeletedAt = field.NewField(table, "deleted_at")
-	u.Name = field.NewString(table, " user_name")
-	u.Password = field.NewString(table, " user_pwd_hash")
-	u.FollowCount = field.NewInt(table, " follow_count, type: int")
-	u.FollowerCount = field.NewInt(table, " follower_count, type: int")
+	u.Name = field.NewString(table, "user_name")
+	u.Password = field.NewString(table, "user_pwd_hash")
+	u.FollowCount = field.NewInt(table, "follow_count")
+	u.FollowerCount = field.NewInt(table, "follower_count")
 
 	u.fillFieldMap()
 
@@ -106,10 +106,10 @@ func (u *user) fillFieldMap() {
 	u.fieldMap["created_at"] = u.CreatedAt
 	u.fieldMap["updated_at"] = u.UpdatedAt
 	u.fieldMap["deleted_at"] = u.DeletedAt
-	u.fieldMap[" user_name"] = u.Name
-	u.fieldMap[" user_pwd_hash"] = u.Password
-	u.fieldMap[" follow_count, type: int"] = u.FollowCount
-	u.fieldMap[" follower_count, type: int"] = u.FollowerCount
+	u.fieldMap["user_name"] = u.Name
+	u.fieldMap["user_pwd_hash"] = u.Password
+	u.fieldMap["follow_count"] = u.FollowCount
+	u.fieldMap["follower_count"] = u.FollowerCount
 }
 
 func (u user) clone(db *gorm.DB) user {
@@ -190,7 +190,7 @@ func (u userDo) UpdateUserFollowCount(id uint, follow_count int) (err error) {
 //
 //	{{set}}
 //		update_time=now(),
-//		{{if follower_count != ""}}
+//		{{if follower_count != 0}}
 //			follower_count=@follower_count
 //		{{end}}
 //	{{end}}
@@ -203,7 +203,7 @@ func (u userDo) UpdateUserFollowerCount(id uint, follower_count int) (err error)
 	generateSQL.WriteString("update users ")
 	var setSQL0 strings.Builder
 	setSQL0.WriteString("update_time=now(), ")
-	if follower_count != "" {
+	if follower_count != 0 {
 		params = append(params, follower_count)
 		setSQL0.WriteString("follower_count=? ")
 	}
