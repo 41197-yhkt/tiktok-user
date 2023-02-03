@@ -14,6 +14,6 @@ type User struct {
 
 type UserRelation struct {
 	gorm.Model      // ID uint CreatAt time.Time UpdateAt time.Time DeleteAt gorm.DeleteAt If it is repeated with the definition will be ignored
-	FollowFrom uint `gorm:"column:follow_from;uniqueIndex:index_follow_relation"`
-	FollowTo   uint `gorm:"column:follow_to;uniqueIndex:index_follow_relation"`
+	FollowFrom uint `gorm:"column:follow_from"`
+	FollowTo   uint `gorm:"column:follow_to"`
 }
