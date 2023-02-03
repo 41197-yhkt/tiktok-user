@@ -3,7 +3,7 @@ module github.com/41197-yhkt/tiktok-user
 go 1.19
 
 require (
-	github.com/41197-yhkt/pkg v0.0.0-20230131134545-40a2f57a6153
+	github.com/41197-yhkt/pkg v0.0.0-20230203122853-b42744c6ab2a
 	github.com/apache/thrift v0.17.0
 	github.com/cloudwego/kitex v0.4.4
 	github.com/opentracing/opentracing-go v1.2.0

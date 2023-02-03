@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"errors"
-	"fmt"
+	"github.com/41197-yhkt/pkg/errno"
 	"github.com/41197-yhkt/tiktok-user/dao/dal"
 	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
 	"github.com/41197-yhkt/tiktok-user/dao/dal/query"
@@ -24,13 +24,11 @@ func UserRegister(ctx context.Context, req *user.UserRegisterRequest) (resp *use
 
 	if err == nil {
 		// username对应的用户已经存在，请重新注册
-		fmt.Println("I am here")
-		sErr := errors.New("username is already in use, please change another one")
-		resp.BaseResp = util.PackBaseResp(sErr)
-		return resp, sErr
+		resp.BaseResp = util.PackBaseResp(errno.UserAlreadyExistErr)
+		return resp, errno.UserAlreadyExistErr
 	}
 
-	// 当前注册的用户已经不存在
+	// 当前注册的用户不存在
 	if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
 		// 对于用户密码进行加密处理
 		rawPassword := req.Password
@@ -54,7 +52,7 @@ func UserRegister(ctx context.Context, req *user.UserRegisterRequest) (resp *use
 
 		// 正常返回
 		resp.UserId = int64(newUser.ID)
-		resp.BaseResp = util.PackBaseResp(nil)
+		resp.BaseResp = util.PackBaseResp(errno.Success)
 		return resp, nil
 	} else {
 		resp.BaseResp = util.PackBaseResp(err)
