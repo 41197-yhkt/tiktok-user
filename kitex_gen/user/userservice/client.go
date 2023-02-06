@@ -16,6 +16,10 @@ type Client interface {
 	UserInfo(ctx context.Context, req *user.UserInfoRequest, callOptions ...callopt.Option) (r *user.UserInfoResponse, err error)
 	UserFollow(ctx context.Context, req *user.UserFollowRequest, callOptions ...callopt.Option) (r *user.UserFollowResponse, err error)
 	UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest, callOptions ...callopt.Option) (r *user.UserUnfollowResponse, err error)
+	GetFollowList(ctx context.Context, req *user.FollowListRequest, callOptions ...callopt.Option) (r *user.FollowListResponse, err error)
+	GetFollowerList(ctx context.Context, req *user.FollowerListRequest, callOptions ...callopt.Option) (r *user.FollowerListResponse, err error)
+	GetFriendList(ctx context.Context, req *user.FriendListRequest, callOptions ...callopt.Option) (r *user.FriendListResponse, err error)
+	IsFriend(ctx context.Context, req *user.IsFriendRequest, callOptions ...callopt.Option) (r *user.IsFriendResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -70,4 +74,24 @@ func (p *kUserServiceClient) UserFollow(ctx context.Context, req *user.UserFollo
 func (p *kUserServiceClient) UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest, callOptions ...callopt.Option) (r *user.UserUnfollowResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UserUnfollow(ctx, req)
+}
+
+func (p *kUserServiceClient) GetFollowList(ctx context.Context, req *user.FollowListRequest, callOptions ...callopt.Option) (r *user.FollowListResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFollowList(ctx, req)
+}
+
+func (p *kUserServiceClient) GetFollowerList(ctx context.Context, req *user.FollowerListRequest, callOptions ...callopt.Option) (r *user.FollowerListResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFollowerList(ctx, req)
+}
+
+func (p *kUserServiceClient) GetFriendList(ctx context.Context, req *user.FriendListRequest, callOptions ...callopt.Option) (r *user.FriendListResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFriendList(ctx, req)
+}
+
+func (p *kUserServiceClient) IsFriend(ctx context.Context, req *user.IsFriendRequest, callOptions ...callopt.Option) (r *user.IsFriendResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.IsFriend(ctx, req)
 }

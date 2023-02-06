@@ -9,9 +9,9 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	golang.org/x/crypto v0.0.0-20221005025214-4161e89ecf1b
 	gorm.io/driver/mysql v1.4.5
-	gorm.io/gen v0.3.19
-	gorm.io/gorm v1.24.3
-	gorm.io/plugin/dbresolver v1.4.0
+	gorm.io/gen v0.3.21
+	gorm.io/gorm v1.24.5
+	gorm.io/plugin/dbresolver v1.4.1
 )
 
 require (

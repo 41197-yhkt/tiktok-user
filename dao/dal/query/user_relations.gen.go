@@ -126,9 +126,9 @@ func (u userRelationDo) FindByID(id uint) (result model.UserRelation, err error)
 	generateSQL.WriteString("id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -141,9 +141,9 @@ func (u userRelationDo) FindByFollowFrom(follow_from uint) (result []model.UserR
 	generateSQL.WriteString("follow_from=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -156,9 +156,9 @@ func (u userRelationDo) FindByFollowTo(follow_to uint) (result []model.UserRelat
 	generateSQL.WriteString("follow_to=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -172,9 +172,9 @@ func (u userRelationDo) FindByFollowFromAndFollowTo(follow_from uint, follow_to 
 	generateSQL.WriteString("follow_from=? and follow_to=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 

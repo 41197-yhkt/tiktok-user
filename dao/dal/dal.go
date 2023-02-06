@@ -2,8 +2,9 @@ package dal
 
 import (
 	"fmt"
-	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
 	"sync"
+
+	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
 
 	"gorm.io/gorm"
 
@@ -15,13 +16,13 @@ var once sync.Once
 
 func init() {
 	once.Do(func() {
-		DB = ConnectDB()
+		DB = ConnectDB().Debug()
 		_ = DB.AutoMigrate(&model.User{}, &model.UserRelation{})
 	})
 }
 
 func ConnectDB() (conn *gorm.DB) {
-	dsn := "root:liu@tcp(127.0.0.1:3306)/tiktok-test?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:123456@tcp(172.19.31.67:6666)/tiktok_test?charset=utf8mb4&parseTime=True&loc=Local"
 	conn, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})

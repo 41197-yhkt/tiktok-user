@@ -133,9 +133,9 @@ func (u userDo) FindByUserName(user_name string) (result model.User, err error) 
 	generateSQL.WriteString("user_name=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -148,9 +148,9 @@ func (u userDo) FindByUserID(id uint) (result model.User, err error) {
 	generateSQL.WriteString("id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -180,9 +180,9 @@ func (u userDo) UpdateUserFollowCount(id uint, follow_count int) (err error) {
 	generateSQL.WriteString("where id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...)
+	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -212,9 +212,9 @@ func (u userDo) UpdateUserFollowerCount(id uint, follower_count int) (err error)
 	generateSQL.WriteString("where id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...)
+	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 

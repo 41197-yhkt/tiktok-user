@@ -19,11 +19,15 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "UserService"
 	handlerType := (*user.UserService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"UserRegister": kitex.NewMethodInfo(userRegisterHandler, newUserServiceUserRegisterArgs, newUserServiceUserRegisterResult, false),
-		"UserLogin":    kitex.NewMethodInfo(userLoginHandler, newUserServiceUserLoginArgs, newUserServiceUserLoginResult, false),
-		"UserInfo":     kitex.NewMethodInfo(userInfoHandler, newUserServiceUserInfoArgs, newUserServiceUserInfoResult, false),
-		"UserFollow":   kitex.NewMethodInfo(userFollowHandler, newUserServiceUserFollowArgs, newUserServiceUserFollowResult, false),
-		"UserUnfollow": kitex.NewMethodInfo(userUnfollowHandler, newUserServiceUserUnfollowArgs, newUserServiceUserUnfollowResult, false),
+		"UserRegister":    kitex.NewMethodInfo(userRegisterHandler, newUserServiceUserRegisterArgs, newUserServiceUserRegisterResult, false),
+		"UserLogin":       kitex.NewMethodInfo(userLoginHandler, newUserServiceUserLoginArgs, newUserServiceUserLoginResult, false),
+		"UserInfo":        kitex.NewMethodInfo(userInfoHandler, newUserServiceUserInfoArgs, newUserServiceUserInfoResult, false),
+		"UserFollow":      kitex.NewMethodInfo(userFollowHandler, newUserServiceUserFollowArgs, newUserServiceUserFollowResult, false),
+		"UserUnfollow":    kitex.NewMethodInfo(userUnfollowHandler, newUserServiceUserUnfollowArgs, newUserServiceUserUnfollowResult, false),
+		"GetFollowList":   kitex.NewMethodInfo(getFollowListHandler, newUserServiceGetFollowListArgs, newUserServiceGetFollowListResult, false),
+		"GetFollowerList": kitex.NewMethodInfo(getFollowerListHandler, newUserServiceGetFollowerListArgs, newUserServiceGetFollowerListResult, false),
+		"GetFriendList":   kitex.NewMethodInfo(getFriendListHandler, newUserServiceGetFriendListArgs, newUserServiceGetFriendListResult, false),
+		"IsFriend":        kitex.NewMethodInfo(isFriendHandler, newUserServiceIsFriendArgs, newUserServiceIsFriendResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -129,6 +133,78 @@ func newUserServiceUserUnfollowResult() interface{} {
 	return user.NewUserServiceUserUnfollowResult()
 }
 
+func getFollowListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceGetFollowListArgs)
+	realResult := result.(*user.UserServiceGetFollowListResult)
+	success, err := handler.(user.UserService).GetFollowList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceGetFollowListArgs() interface{} {
+	return user.NewUserServiceGetFollowListArgs()
+}
+
+func newUserServiceGetFollowListResult() interface{} {
+	return user.NewUserServiceGetFollowListResult()
+}
+
+func getFollowerListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceGetFollowerListArgs)
+	realResult := result.(*user.UserServiceGetFollowerListResult)
+	success, err := handler.(user.UserService).GetFollowerList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceGetFollowerListArgs() interface{} {
+	return user.NewUserServiceGetFollowerListArgs()
+}
+
+func newUserServiceGetFollowerListResult() interface{} {
+	return user.NewUserServiceGetFollowerListResult()
+}
+
+func getFriendListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceGetFriendListArgs)
+	realResult := result.(*user.UserServiceGetFriendListResult)
+	success, err := handler.(user.UserService).GetFriendList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceGetFriendListArgs() interface{} {
+	return user.NewUserServiceGetFriendListArgs()
+}
+
+func newUserServiceGetFriendListResult() interface{} {
+	return user.NewUserServiceGetFriendListResult()
+}
+
+func isFriendHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceIsFriendArgs)
+	realResult := result.(*user.UserServiceIsFriendResult)
+	success, err := handler.(user.UserService).IsFriend(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceIsFriendArgs() interface{} {
+	return user.NewUserServiceIsFriendArgs()
+}
+
+func newUserServiceIsFriendResult() interface{} {
+	return user.NewUserServiceIsFriendResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -184,6 +260,46 @@ func (p *kClient) UserUnfollow(ctx context.Context, req *user.UserUnfollowReques
 	_args.Req = req
 	var _result user.UserServiceUserUnfollowResult
 	if err = p.c.Call(ctx, "UserUnfollow", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFollowList(ctx context.Context, req *user.FollowListRequest) (r *user.FollowListResponse, err error) {
+	var _args user.UserServiceGetFollowListArgs
+	_args.Req = req
+	var _result user.UserServiceGetFollowListResult
+	if err = p.c.Call(ctx, "GetFollowList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFollowerList(ctx context.Context, req *user.FollowerListRequest) (r *user.FollowerListResponse, err error) {
+	var _args user.UserServiceGetFollowerListArgs
+	_args.Req = req
+	var _result user.UserServiceGetFollowerListResult
+	if err = p.c.Call(ctx, "GetFollowerList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFriendList(ctx context.Context, req *user.FriendListRequest) (r *user.FriendListResponse, err error) {
+	var _args user.UserServiceGetFriendListArgs
+	_args.Req = req
+	var _result user.UserServiceGetFriendListResult
+	if err = p.c.Call(ctx, "GetFriendList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) IsFriend(ctx context.Context, req *user.IsFriendRequest) (r *user.IsFriendResponse, err error) {
+	var _args user.UserServiceIsFriendArgs
+	_args.Req = req
+	var _result user.UserServiceIsFriendResult
+	if err = p.c.Call(ctx, "IsFriend", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

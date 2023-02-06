@@ -36,4 +36,8 @@ type UserRelationMethod interface {
 	FindByFollowTo(follow_to uint) ([]gen.T, error)
 	//where("follow_from=@follow_from and follow_to=@follow_to")
 	FindByFollowFromAndFollowTo(follow_from uint, follow_to uint) (gen.T, error)
+	// //select follow_to from @@table where (follow_from=@follow_from")
+	// getFollowIdListByFollowFrom(follow_to uint) ([]int, error)
+	// //select follow_from from @@table where (follow_to=@follow_to")
+	// getFollowerIdListByFollowTo(follow_from uint) ([]int, error)
 }
