@@ -40,8 +40,7 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (resp *user.UserIn
 		Name:          gormUser.Name,
 		FollowCount:   &followCount,
 		FollowerCount: &followerCount,
-		IsFollow:      false,
 	}
-
+	resp.BaseResp = util.PackBaseResp(errno.Success)
 	return resp, nil
 }

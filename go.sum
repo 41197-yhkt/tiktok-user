@@ -1,6 +1,10 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/41197-yhkt/pkg v0.0.0-20230131134545-40a2f57a6153 h1:VK5lFjRdrMBRkhc7aZZO5Dsn7PW8I4W2jOTzSyIgfGY=
 github.com/41197-yhkt/pkg v0.0.0-20230131134545-40a2f57a6153/go.mod h1:xeXn6TIyWwlvaF70O5LC/jSlXPIyFkQC5GnQhCnAMsQ=
+github.com/41197-yhkt/pkg v0.0.0-20230202093942-209526122bdb h1:oNI1M7sY2izWY8mNAPSGjTuL+xqiHIQsGQAFYAZC9/U=
+github.com/41197-yhkt/pkg v0.0.0-20230202093942-209526122bdb/go.mod h1:xeXn6TIyWwlvaF70O5LC/jSlXPIyFkQC5GnQhCnAMsQ=
+github.com/41197-yhkt/pkg v0.0.0-20230203122853-b42744c6ab2a h1:4j4QUNaTDzGHFnPX3BBi8WeScS+JiRXsBqd+BDh/uks=
+github.com/41197-yhkt/pkg v0.0.0-20230203122853-b42744c6ab2a/go.mod h1:xeXn6TIyWwlvaF70O5LC/jSlXPIyFkQC5GnQhCnAMsQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/apache/thrift v0.13.0 h1:5hryIiq9gtn+MiLVn0wP37kb/uTeRZgN08WoCsAhIhI=
 github.com/apache/thrift v0.13.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=

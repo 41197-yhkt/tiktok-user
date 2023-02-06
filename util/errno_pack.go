@@ -1,6 +1,7 @@
 package util
 
 import (
+	"errors"
 	"github.com/41197-yhkt/pkg/errno"
 	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
 )
@@ -10,10 +11,16 @@ func PackBaseResp(err error) *user.BaseResp {
 		return baseResp(errno.Success)
 	}
 
-	// 业务错误，更新错误信息
-	s := errno.ServerError
-	s.Msg = err.Error()
-	return baseResp(s)
+	e := &errno.ErrNo{}
+	if errors.As(err, &e) {
+		return baseResp(e)
+	}
+
+	sErr := errno.ServerError
+	if err.Error() != "" {
+		sErr.Msg = err.Error()
+	}
+	return baseResp(sErr)
 }
 
 func baseResp(err *errno.ErrNo) *user.BaseResp {

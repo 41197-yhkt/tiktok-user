@@ -24,7 +24,7 @@ func UserLogin(ctx context.Context, req *user.UserLoginRequest) (resp *user.User
 	// 如果记录不存在
 	if errors.Is(sErr, gorm.ErrRecordNotFound) {
 		resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
-		return resp, errors.New("user has't registered")
+		return resp, errno.UserNotExist
 	}
 
 	// 如果记录存在
@@ -37,10 +37,10 @@ func UserLogin(ctx context.Context, req *user.UserLoginRequest) (resp *user.User
 	// 密码不匹配
 	if !pwdCmpPass {
 		resp.BaseResp = util.PackBaseResp(errno.UserPwdErr)
-		return resp, sErr
+		return resp, errno.UserPwdErr
 	}
 
-	resp.BaseResp = util.PackBaseResp(nil)
+	resp.BaseResp = util.PackBaseResp(errno.Success)
 	resp.UserId = int64(gormUser.ID)
 	return resp, nil
 }
