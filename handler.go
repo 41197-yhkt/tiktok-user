@@ -37,24 +37,24 @@ func (s *UserServiceImpl) UserUnfollow(ctx context.Context, req *user.UserUnfoll
 
 // GetFollowList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.FollowListRequest) (resp *user.FollowListResponse, err error) {
-	// TODO: Your code here...
+
 	return service.GetFollowList(ctx, req)
 }
 
 // GetFollowerList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.FollowerListRequest) (resp *user.FollowerListResponse, err error) {
-	// TODO: Your code here...
+
 	return service.GetFollowerList(ctx, req)
 }
 
 // GetFriendList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.FriendListRequest) (resp *user.FriendListResponse, err error) {
-	// TODO: Your code here...
+
 	return service.GetFriendList(ctx, req)
 }
 
 // IsFriend implements the UserServiceImpl interface.
 func (s *UserServiceImpl) IsFriend(ctx context.Context, req *user.IsFriendRequest) (resp *user.IsFriendResponse, err error) {
-	// TODO: Your code here...
+	
 	return service.IsFriend(ctx, req.UserId, req.ToUserId)
 }
