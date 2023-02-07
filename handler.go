@@ -37,24 +37,30 @@ func (s *UserServiceImpl) UserUnfollow(ctx context.Context, req *user.UserUnfoll
 
 // GetFollowList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.FollowListRequest) (resp *user.FollowListResponse, err error) {
-
 	return service.GetFollowList(ctx, req)
 }
 
 // GetFollowerList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.FollowerListRequest) (resp *user.FollowerListResponse, err error) {
-
 	return service.GetFollowerList(ctx, req)
 }
 
 // GetFriendList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.FriendListRequest) (resp *user.FriendListResponse, err error) {
-
 	return service.GetFriendList(ctx, req)
 }
 
 // IsFriend implements the UserServiceImpl interface.
 func (s *UserServiceImpl) IsFriend(ctx context.Context, req *user.IsFriendRequest) (resp *user.IsFriendResponse, err error) {
-	
 	return service.IsFriend(ctx, req.UserId, req.ToUserId)
+}
+
+// CompGetUser implements the UserServiceImpl interface.
+func (s *UserServiceImpl) CompGetUser(ctx context.Context, req *user.CompGetUserRequest) (resp *user.CompGetUserResponse, err error) {
+	return service.CompGetUser(ctx, req)
+}
+
+// CompMGetUser implements the UserServiceImpl interface.
+func (s *UserServiceImpl) CompMGetUser(ctx context.Context, req *user.CompMGetUserRequest) (resp *user.CompMGetUserResponse, err error) {
+	return service.CompMGetUser(ctx, req)
 }
