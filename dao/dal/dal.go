@@ -22,7 +22,7 @@ func init() {
 }
 
 func ConnectDB() (conn *gorm.DB) {
-	dsn := "root:123456@tcp(172.19.31.67:6666)/tiktok_test?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:123456@tcp(localhost:6666)/tiktok_db?charset=utf8mb4&parseTime=True&loc=Local"
 	conn, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})

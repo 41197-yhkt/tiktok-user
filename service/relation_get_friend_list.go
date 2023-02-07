@@ -31,16 +31,17 @@ func GetFriendList(ctx context.Context, req *user.FriendListRequest) (resp *user
 		return
 	}
 
+	userList := make([]*user.User, 0)
 	for _, v := range userFollow_list {
 		//判断user的关注列表有没有跟user是朋友的
-		bool_resp, erro := IsFriend(ctx, userId, int64(v.FollowTo))
+		boolResp, erro := IsFriend(ctx, userId, int64(v.FollowTo))
 		if erro != nil {
 			resp.BaseResp = util.PackBaseResp(err)
 			return
 		}
 		//如果是朋友，则直接找出该follow_user信息，并加入到resp user_list中
-		if bool_resp.IsFriend {
-			follow_user, sErr := userDao.FindByUserID(v.FollowTo)
+		if boolResp.IsFriend {
+			followUser, sErr := userDao.FindByUserID(v.FollowTo)
 			if sErr != nil {
 				if errors.Is(sErr, gorm.ErrRecordNotFound) {
 					resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
@@ -49,17 +50,19 @@ func GetFriendList(ctx context.Context, req *user.FriendListRequest) (resp *user
 				}
 				return resp, sErr
 			}
-			follow_count := int64(follow_user.FollowCount)
-			follower_count := int64(follow_user.FollowerCount)
-			resp.UserList = append(resp.UserList, &user.User{
-				Id:            int64(follow_user.ID),
-				Name:          follow_user.Name,
-				FollowCount:   &follow_count,
-				FollowerCount: &follower_count,
+			followCount := int64(followUser.FollowCount)
+			followerCount := int64(followUser.FollowerCount)
+			userList = append(userList, &user.User{
+				Id:            int64(followUser.ID),
+				Name:          followUser.Name,
+				FollowCount:   &followCount,
+				FollowerCount: &followerCount,
 				IsFollow:      false,
 			})
 		}
 	}
+
+	resp.UserList = userList
 	resp.BaseResp = util.PackBaseResp(nil)
 	return resp, nil
 }

@@ -22,14 +22,15 @@ func GetFollowList(ctx context.Context, req *user.FollowListRequest) (resp *user
 	userDao := q.User.WithContext(ctx)
 	userID := req.UserId
 	//找到user的关注列表
-	userRelation_list, err := userRelationDao.FindByFollowFrom(uint(userID))
+	userRelationList, err := userRelationDao.FindByFollowFrom(uint(userID))
 	if err != nil {
 		resp.BaseResp = util.PackBaseResp(err)
 		return
 	}
 	//根据user的关注列表ID找到对应UserInfo
-	for _, v := range userRelation_list {
-		follow_user, sErr := userDao.FindByUserID(v.FollowTo)
+	userList := make([]*user.User, 0)
+	for _, v := range userRelationList {
+		followUser, sErr := userDao.FindByUserID(v.FollowTo)
 		if sErr != nil {
 			if errors.Is(sErr, gorm.ErrRecordNotFound) {
 				resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
@@ -38,17 +39,19 @@ func GetFollowList(ctx context.Context, req *user.FollowListRequest) (resp *user
 			}
 			return resp, sErr
 		}
-		follow_count := int64(follow_user.FollowCount)
-		follower_count := int64(follow_user.FollowerCount)
-		resp.UserList = append(resp.UserList, &user.User{
-			Id:            int64(follow_user.ID),
-			Name:          follow_user.Name,
-			FollowCount:   &follow_count,
-			FollowerCount: &follower_count,
+		followCount := int64(followUser.FollowCount)
+		followerCount := int64(followUser.FollowerCount)
+		userList = append(userList, &user.User{
+			Id:            int64(followUser.ID),
+			Name:          followUser.Name,
+			FollowCount:   &followCount,
+			FollowerCount: &followerCount,
 			IsFollow:      false,
 		})
 	}
-	resp.BaseResp = util.PackBaseResp(nil)
+
+	resp.UserList = userList
+	resp.BaseResp = util.PackBaseResp(errno.Success)
 	return resp, nil
 
 }

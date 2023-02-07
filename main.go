@@ -7,6 +7,7 @@ import (
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
 	"log"
+	"net"
 )
 
 func main() {
@@ -19,7 +20,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	userServer := user.NewServer(new(UserServiceImpl), server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "user"}), server.WithRegistry(r))
+
+	addr, _ := net.ResolveTCPAddr("tcp", "127.0.0.1:9999")
+	userServer := user.NewServer(new(UserServiceImpl), server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "user"}), server.WithRegistry(r), server.WithServiceAddr(addr))
 	err = userServer.Run()
 	if err != nil {
 		log.Fatal(err)

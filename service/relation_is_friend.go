@@ -18,27 +18,27 @@ func IsFriend(ctx context.Context, userId, toUserId int64) (resp *user.IsFriendR
 	UserRelationDao := q.UserRelation.WithContext(ctx)
 
 	//找到user1的关注列表
-	userId_follow_list, err1 := UserRelationDao.FindByFollowFrom(uint(userId))
-	if err1 != nil {
-		resp.BaseResp = util.PackBaseResp(err1)
+	userIdFollowList, err := UserRelationDao.FindByFollowFrom(uint(userId))
+	if err != nil {
+		resp.BaseResp = util.PackBaseResp(err)
 		return
 	}
 	//找到user2的关注列表
-	toUserId_follow_list, err2 := UserRelationDao.FindByFollowFrom(uint(toUserId))
-	if err2 != nil {
-		resp.BaseResp = util.PackBaseResp(err2)
+	toUserIdFollowList, err := UserRelationDao.FindByFollowFrom(uint(toUserId))
+	if err != nil {
+		resp.BaseResp = util.PackBaseResp(err)
 		return
 	}
 	var flag1, flag2 bool
 	//判断user1的关注列表是否有user2
-	for _, v := range userId_follow_list {
+	for _, v := range userIdFollowList {
 		if toUserId == int64(v.FollowTo) {
 			flag1 = true
 			break
 		}
 	}
 	//判断user2的关注列表是否有user1
-	for _, v := range toUserId_follow_list {
+	for _, v := range toUserIdFollowList {
 		if userId == int64(v.FollowTo) {
 			flag2 = true
 			break

@@ -27,9 +27,11 @@ func GetFollowerList(ctx context.Context, req *user.FollowerListRequest) (resp *
 		resp.BaseResp = util.PackBaseResp(err)
 		return
 	}
+
 	//根据user的粉丝列表ID找到对应UserInfo
+	userList := make([]*user.User, 0)
 	for _, v := range userRelation_list {
-		follower_user, sErr := userDao.FindByUserID(v.FollowFrom)
+		followerUser, sErr := userDao.FindByUserID(v.FollowFrom)
 		if sErr != nil {
 			if errors.Is(sErr, gorm.ErrRecordNotFound) {
 				resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
@@ -38,17 +40,18 @@ func GetFollowerList(ctx context.Context, req *user.FollowerListRequest) (resp *
 			}
 			return resp, sErr
 		}
-		follow_count := int64(follower_user.FollowCount)
-		follower_count := int64(follower_user.FollowerCount)
-		resp.UserList = append(resp.UserList, &user.User{
-			Id:            int64(follower_user.ID),
-			Name:          follower_user.Name,
-			FollowCount:   &follow_count,
-			FollowerCount: &follower_count,
-			IsFollow:      false,
+		followCount := int64(followerUser.FollowCount)
+		followerCount := int64(followerUser.FollowerCount)
+		userList = append(userList, &user.User{
+			Id:            int64(followerUser.ID),
+			Name:          followerUser.Name,
+			FollowCount:   &followCount,
+			FollowerCount: &followerCount,
 		})
 	}
-	resp.BaseResp = util.PackBaseResp(nil)
+
+	resp.UserList = userList
+	resp.BaseResp = util.PackBaseResp(errno.Success)
 	return resp, nil
 
 }
