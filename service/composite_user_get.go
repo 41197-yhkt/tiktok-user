@@ -19,7 +19,7 @@ func CompGetUser(ctx context.Context, req *user.CompGetUserRequest) (resp *user.
 	targetUser, err := UserInfo(ctx, getUserReq)
 	if err != nil {
 		resp.BaseResp = util.PackBaseResp(err)
-		return resp, err
+		return
 	}
 
 	// judge follow relation

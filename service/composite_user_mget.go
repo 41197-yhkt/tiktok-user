@@ -31,15 +31,16 @@ func CompMGetUser(ctx context.Context, req *user.CompMGetUserRequest) (resp *use
 		return
 	}
 
+	userList := make([]*user.User, 0)
 	for _, targetUserID := range targetUserIDs {
-		targetUser, sErr := userDao.FindByUserID(targetUserID)
-		if sErr != nil {
-			if errors.Is(sErr, gorm.ErrRecordNotFound) {
+		targetUser, err := userDao.FindByUserID(targetUserID)
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
 				resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
 			} else {
-				resp.BaseResp = util.PackBaseResp(sErr)
+				resp.BaseResp = util.PackBaseResp(err)
 			}
-			return resp, sErr
+			return resp, err
 		}
 		followCount := int64(targetUser.FollowCount)
 		followerCount := int64(targetUser.FollowerCount)
@@ -58,8 +59,10 @@ func CompMGetUser(ctx context.Context, req *user.CompMGetUserRequest) (resp *use
 			}
 		}
 
-		resp.UserList = append(resp.UserList, packedUser)
+		userList = append(userList, packedUser)
 	}
 
+	resp.UserList = userList
+	resp.BaseResp = util.PackBaseResp(errno.Success)
 	return
 }
