@@ -19,17 +19,17 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (resp *user.UserIn
 
 	var q = query.Use(dal.DB.Debug())
 	userDao := q.User.WithContext(ctx)
-	gormUser, sErr := userDao.FindByUserID(uint(req.UserId))
+	gormUser, err := userDao.FindByUserID(uint(req.UserId))
 
 	// 如果查询失败
-	if sErr != nil {
-		if errors.Is(sErr, gorm.ErrRecordNotFound) {
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
 			resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
 		} else {
-			resp.BaseResp = util.PackBaseResp(sErr)
+			resp.BaseResp = util.PackBaseResp(err)
 		}
 
-		return resp, sErr
+		return resp, errno.UserNotExist
 	}
 
 	followCount := int64(gormUser.FollowCount)

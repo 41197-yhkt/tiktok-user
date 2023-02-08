@@ -1811,8 +1811,8 @@ func (p *UserLoginResponse) Field3DeepEqual(src string) bool {
 }
 
 type UserInfoRequest struct {
-	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
-	Token  string `thrift:"token,2,required" frugal:"2,required,string" json:"token"`
+	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" query:"user_id"`
+	Token  string `thrift:"token,2,required" frugal:"2,required,string" query:"token"`
 }
 
 func NewUserInfoRequest() *UserInfoRequest {
